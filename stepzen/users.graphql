@@ -1,0 +1,43 @@
+type Query {
+  user(user_token: Secret!): User
+    @graphql(
+      endpoint: "https://afternoon-spire-43659.herokuapp.com/graphql"
+      headers: [{ name: "Authorization", value: "Bearer $user_token" }]
+    )
+}
+
+type Mutation {
+  login(email: String!, password: String!): Auth
+    @graphql(endpoint: "https://afternoon-spire-43659.herokuapp.com/graphql")
+}
+
+type Order {
+  _id: ID
+  purchaseDate: String
+  products: [Product]
+  order_status: String
+}
+
+type Cart {
+  _id: ID
+  product: Product
+  quantity: Int
+}
+
+type User {
+  _id: ID
+  first_name: String
+  last_name: String
+  image_url: String
+  email: String
+  password: String
+  isAdmin: Boolean
+  orders: [Order]
+  cart: [Cart]
+  wishlist: [Product]
+}
+
+type Auth {
+  token: ID!
+  user: User
+}
