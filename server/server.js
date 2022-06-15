@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 require("dotenv").config();
 
 const app = express();
@@ -11,7 +11,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.post("/", async (req, res) => {
-    
   try {
     const response = await axios(process.env.STEPZEN_ENDPOINT, {
       method: "POST",
