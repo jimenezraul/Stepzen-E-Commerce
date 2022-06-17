@@ -4,34 +4,12 @@ This schema is used to query data from the MongoDB Atlas sample database "sample
 
 type Query {
   categories: [Category]
-    @rest(
-      endpoint: "https://asos2.p.rapidapi.com/categories/list?country=US&lang=en-US"
-      headers: [
-        { name: "X-RapidAPI-Key", value: "$rapidapi_key" }
-        { name: "X-RapidAPI-Host", value: "asos2.p.rapidapi.com" }
-      ]
-      configuration: "pet-store-db"
+    @graphql(
+      endpoint: "https://afternoon-spire-43659.herokuapp.com/graphql"
     )
 }
 
-type CategoryId{
-  categoryId: Int
-}
-
-type Content{
-  title: String
-}
-
-type Childrens {
-  content: Content
-  link: CategoryId
-}
-
-type Brand {
-  content: Content
-  children: [Childrens]
-}
-
 type Category {
-  brands: [Brand]
-}
+    _id: ID
+    name: String
+  }
