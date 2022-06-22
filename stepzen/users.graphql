@@ -1,3 +1,7 @@
+"""
+This schema is used to query and mutation user 
+"""
+
 type Query {
   user(token: Secret!): User
     @graphql(
@@ -9,7 +13,7 @@ type Query {
 type Mutation {
   login(email: String!, password: String!): Auth
     @graphql(endpoint: "https://afternoon-spire-43659.herokuapp.com/graphql")
-  addToCart(
+  add2Cart(
     token: Secret!
     _id: ID!
     name: String!
@@ -22,7 +26,7 @@ type Mutation {
       endpoint: "https://afternoon-spire-43659.herokuapp.com/graphql"
       headers: [{ name: "Authorization", value: "Bearer $token" }]
     )
-  removeFromCart(token: Secret!, productId: ID!): Cart
+  deleteFromCart(token: Secret!, productId: ID!): Cart
     @graphql(
       endpoint: "https://afternoon-spire-43659.herokuapp.com/graphql"
       headers: [{ name: "Authorization", value: "Bearer $token" }]

@@ -10,14 +10,16 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.post("/", async (req, res) => {
+  var url = "http://localhost:3000/";
   try {
     const response = await axios(process.env.STEPZEN_ENDPOINT, {
       method: "POST",
       headers: {
         Authorization: `Apikey ${process.env.STEPZEN_AUTH}`,
+        Referer: url,
       },
       data: req.body,
     });
