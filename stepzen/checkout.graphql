@@ -1,0 +1,25 @@
+"""
+This schema is used to query Checkout
+"""
+type Query {
+  checkout(products: [ID]!, token: Secret!): Checkout
+    @graphql(
+      endpoint: "https://afternoon-spire-43659.herokuapp.com/graphql"
+      headers: [
+        { name: "Authorization", value: "Bearer $token" }
+        { name: "Referer", value: "http://localhost:3000/" }
+      ]
+    )
+}
+
+type Mutation {
+  addOrder(products: [ID]!, token: Secret!): Order
+    @graphql(
+      endpoint: "https://afternoon-spire-43659.herokuapp.com/graphql"
+      headers: [{ name: "Authorization", value: "Bearer $token" }]
+    )
+}
+
+type Checkout {
+  session: ID
+}

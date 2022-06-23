@@ -1,0 +1,76 @@
+"""
+This schema is used to query and mutation user
+"""
+scalar Upload
+
+type Query {
+  user(token: Secret!): User
+    @graphql(
+      endpoint: "https://afternoon-spire-43659.herokuapp.com/graphql"
+      headers: [{ name: "Authorization", value: "Bearer $token" }]
+    )
+}
+
+type Mutation {
+  login(email: String!, password: String!): Auth
+    @graphql(endpoint: "https://afternoon-spire-43659.herokuapp.com/graphql")
+  add2Cart(
+    token: Secret!
+    _id: ID!
+    name: String!
+    description: String!
+    image_url: String!
+    price: Float!
+    quantity: Int!
+  ): Product
+    @graphql(
+      endpoint: "https://afternoon-spire-43659.herokuapp.com/graphql"
+      headers: [{ name: "Authorization", value: "Bearer $token" }]
+    )
+  deleteFromCart(token: Secret!, productId: ID!): Cart
+    @graphql(
+      endpoint: "https://afternoon-spire-43659.herokuapp.com/graphql"
+      headers: [{ name: "Authorization", value: "Bearer $token" }]
+    )
+  addToWishlist(token: Secret!, productId: ID!): Product
+    @graphql(
+      endpoint: "https://afternoon-spire-43659.herokuapp.com/graphql"
+      headers: [{ name: "Authorization", value: "Bearer $token" }]
+    )
+  removeFromWishlist(token: Secret!, productId: ID!): Product
+    @graphql(
+      endpoint: "https://afternoon-spire-43659.herokuapp.com/graphql"
+      headers: [{ name: "Authorization", value: "Bearer $token" }]
+    )
+}
+
+type Order {
+  _id: ID
+  purchaseDate: String
+  products: [Product]
+  order_status: String
+}
+
+type Cart {
+  _id: ID
+  product: Product
+  quantity: Int
+}
+
+type User {
+  _id: ID
+  first_name: String
+  last_name: String
+  image_url: String
+  email: String
+  password: String
+  isAdmin: Boolean
+  orders: [Order]
+  cart: [Cart]
+  wishlist: [Product]
+}
+
+type Auth {
+  token: ID!
+  user: User
+}

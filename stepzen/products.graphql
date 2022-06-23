@@ -1,86 +1,25 @@
 """
-This schema is used to query data from the MongoDB Atlas sample database "sample_airbnb"
+This schema is used to query products data
 """
 scalar MongoFilter
 scalar MongoProjection
 scalar MongoSort
 
 type Query {
-  products: [Products]
-    @rest(
-      endpoint: "https://asos2.p.rapidapi.com/products/v2/list?store=US&offset=0&categoryId=4209&limit=48&country=US&sort=freshness&currency=USD&sizeSchema=US&lang=en-US"
-      headers: [
-        { name: "X-RapidAPI-Key", value: "$rapidapi_key" }
-        { name: "X-RapidAPI-Host", value: "asos2.p.rapidapi.com" }
-      ]
-      configuration: "pet-store-db"
-    )
+  products: [Product]
+    @graphql(endpoint: "https://afternoon-spire-43659.herokuapp.com/graphql")
 
-  product(item_id: ID!): Product_by_id
-    @rest(
-      endpoint: "https://asos2.p.rapidapi.com/products/v3/detail?id=$item_id&lang=en-US&store=US&sizeSchema=US&currency=USD"
-      headers: [
-        { name: "X-RapidAPI-Key", value: "$rapidapi_key" }
-        { name: "X-RapidAPI-Host", value: "asos2.p.rapidapi.com" }
-      ]
-      configuration: "pet-store-db"
-    )
+  product(id: ID!): Product
+    @graphql(endpoint: "https://afternoon-spire-43659.herokuapp.com/graphql")
 
-  product_by_category_id(categoryId: ID!): Products_by_category_id
-    @rest(
-      endpoint: "https://asos2.p.rapidapi.com/products/v2/list?store=US&offset=0&categoryId=$categoryId&limit=48&country=US&sort=freshness&q=adidas&currency=USD&sizeSchema=US&lang=en-US"
-      headers: [
-        { name: "X-RapidAPI-Key", value: "$rapidapi_key" }
-        { name: "X-RapidAPI-Host", value: "asos2.p.rapidapi.com" }
-      ]
-      configuration: "pet-store-db"
-    )
-
-
-}
-
-type CurrentPrice {
-  value: Float
-}
-
-type Price {
-  current: CurrentPrice
 }
 
 type Product {
-  id: ID
+  _id: ID
   name: String
-  price: Price
-  imageUrl: String
-}
-
-type Products {
-  id: ID
-  products: [Product]
-  categoryName: String
-}
-
-type Images {
-  url: String
-}
-
-type Media {
-  images: [Images]
-}
-
-type Product_by_id {
-  id: ID
-  name: String
-  price: Price
   description: String
-  media: Media
-}
-type Product_by_category_id {
-  id: ID
-  name: String
-  price: Price
-  imageUrl: String
-}
-type Products_by_category_id {
-  products: [Product_by_category_id]
+  image_url: String
+  price: Float
+  quantity: Int
+  category: Category
 }
