@@ -26,15 +26,15 @@ ProPet E-commerce platform is a web application built with Stepzen GraphQL and R
 
 ## Tools & Resources
 
-- Stepzen | GraphQL
-- React.js
-- TailwindCSS
-- CSS
-- HTML
-- JavaScript
-- Node.js
-- Express.js
-- Redux
+- Stepzen | GraphQL | [GraphQL](https://graphql.org/)
+- React.js | [React](https://reactjs.org/)
+- TailwindCSS | [Tailwind CSS](https://tailwindcss.com/)
+- CSS | [CSS](https://www.w3schools.com/css/)
+- HTML | [HTML](https://www.w3schools.com/html/)
+- JavaScript | [JavaScript](https://www.w3schools.com/js/)
+- Node.js | [Node.js](https://nodejs.org/)
+- Express.js | [Express.js](https://expressjs.com/)
+- Redux | [Redux](https://redux.js.org/)
 
 ## Instalation
 
@@ -58,7 +58,7 @@ npm install -g stepzen
 stepzen login
 ```
 
-After running stepzen login, you will be prompted with the following message:
+After running stepzen login, you will be prompted with the following message:  
 What is your account name?: {ACCOUNT}  
 What is your admin key?: {ADMINKEY}
 
