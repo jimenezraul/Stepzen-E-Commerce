@@ -4,7 +4,7 @@ const cors = require("cors");
 const axios = require("axios");
 const PORT = process.env.PORT || 3002;
 require("dotenv").config();
-const url = "http://localhost:3000/";
+
 const app = express();
 
 app.use(cors());
@@ -17,8 +17,7 @@ app.post("/", async (req, res) => {
     const response = await axios(process.env.STEPZEN_ENDPOINT, {
       method: "POST",
       headers: {
-        Authorization: `Apikey ${process.env.STEPZEN_AUTH}`,
-        Referer: url,
+        Authorization: `Apikey ${process.env.STEPZEN_AUTH}`
       },
       data: req.body,
     });
