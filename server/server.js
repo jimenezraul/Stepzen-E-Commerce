@@ -17,7 +17,7 @@ app.post("/", async (req, res) => {
     const response = await axios(process.env.STEPZEN_ENDPOINT, {
       method: "POST",
       headers: {
-        Authorization: `Apikey ${process.env.STEPZEN_AUTH}`
+        Authorization: `Apikey ${process.env.STEPZEN_AUTH}`,
       },
       data: req.body,
     });
@@ -25,6 +25,20 @@ app.post("/", async (req, res) => {
   } catch (error) {
     console.log("error", error.response);
   }
+});
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../client/build")));
+}
+
+app.get("/service-worker.js", (req, res) => {
+  res.sendFile(
+    path.resolve(__dirname, "public", "../client/src/service-worker.js")
+  );
+});
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
 
 app.listen(PORT, () => {
