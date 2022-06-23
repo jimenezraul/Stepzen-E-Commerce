@@ -2,57 +2,12 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
-import "./home.css";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCategory, updateCurrentPage } from "../redux/Store/storeSlice";
 import { useQuery } from "@apollo/client";
 import { GET_CATEGORIES } from "../utils/queries";
 import Loading from "../components/Loading";
-
-const url = "https://afternoon-spire-43659.herokuapp.com"
-
-const slideImages = [
-  {
-    url: `${url}/assets/homepage/cat.jpeg`,
-    caption: "Cat",
-  },
-  {
-    url: `${url}/assets/homepage/parrots.jpeg`,
-    caption: "Parrot",
-  },
-  {
-    url: `${url}/assets/homepage/dog.jpeg`,
-    caption: "Dog",
-  },
-];
-
-const categories = [
-  {
-    url: `${url}/assets/categories/dogs/dog.jpeg`,
-    name: "Dog",
-    path: "/store/dog",
-  },
-  {
-    url: `${url}/assets/categories/cats/cat.jpeg`,
-    name: "Cat",
-    path: "/store/cat",
-  },
-  {
-    url: `${url}/assets/categories/fish/fish.jpeg`,
-    name: "Fish",
-    path: "/store/fish",
-  },
-  {
-    url: `${url}/assets/categories/hamsters/hamster.jpeg`,
-    name: "Hamster",
-    path: "/store/hamster",
-  },
-  {
-    url: `${url}/assets/categories/parrots/parrot.jpeg`,
-    name: "Bird",
-    path: "/store/bird",
-  },
-];
+import { categories, slideImages } from "../utils/data";
 
 const Home = () => {
   let categories_ids = useSelector((state) => state.store.categories);
@@ -129,28 +84,27 @@ const Home = () => {
           </div>
           <div className='categories bg-white pb-5'>
             <div className='grid grid-cols-3 md:grid-cols-5 gap-4'>
-              {categories.map((category, index) => (
-                <Link
-                  onClick={() => dispatch(updateCurrentPage("store"))}
-                  to={`${
-                    categories_ids.filter(
-                      (category_id) => category_id.name === category.name
-                    )[0]?.path
-                  }`}
-                  key={index}
-                >
-                  <div key={index} className='text-center mx-auto'>
-                    <img
-                      className='inline-flex w-44'
-                      alt={category.name}
-                      src={category.url}
-                    />
-                    <p className='mt-5 font-semibold text-lg'>
-                      {category.name}
-                    </p>
-                  </div>
-                </Link>
-              ))}
+              {categories.map((category, index) => {
+                const item = categories_ids.filter(
+                  (categoryData) => categoryData.name === category.name
+                )[0];
+                return (
+                  <Link
+                    onClick={() => dispatch(updateCurrentPage("store"))}
+                    to={`${item?.path}`}
+                    key={index}
+                  >
+                    <div key={index} className='text-center mx-auto'>
+                      <img
+                        className='inline-flex w-44'
+                        alt={item?.name}
+                        src={category.url}
+                      />
+                      <p className='mt-5 font-semibold text-lg'>{item?.name}</p>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </div>
