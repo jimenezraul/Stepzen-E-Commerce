@@ -19,7 +19,9 @@ function Success() {
       const cart = user?.cart;
       const products = cart?.map((product) => product?.product?._id);
       if (products?.length) {
-        const { data } = await addOrder({ variables: { products } });
+        const { data } = await addOrder({
+          variables: { products: products, token: Auth.getToken() },
+        });
         const productData = data.addOrder.products;
         productData?.forEach((item) => {
           idbPromise("cart", "delete", item);

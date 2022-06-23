@@ -4,7 +4,7 @@ const cors = require("cors");
 const axios = require("axios");
 const PORT = process.env.PORT || 3002;
 require("dotenv").config();
-
+const url = "http://localhost:3000/";
 const app = express();
 
 app.use(cors());
@@ -13,7 +13,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.post("/", async (req, res) => {
-  var url = "http://localhost:3000/";
   try {
     const response = await axios(process.env.STEPZEN_ENDPOINT, {
       method: "POST",

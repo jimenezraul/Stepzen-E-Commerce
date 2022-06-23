@@ -1,6 +1,7 @@
 """
-This schema is used to query and mutation user 
+This schema is used to query and mutation user
 """
+scalar Upload
 
 type Query {
   user(token: Secret!): User

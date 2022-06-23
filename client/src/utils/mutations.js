@@ -29,12 +29,10 @@ export const SIGNUP = gql`
   }
 `;
 
-export const UPDATE_PROFILE_PICTURE = gql`
-  mutation Mutation($image: Upload!) {
-    updateProfilePicture(image: $image) {
-      user {
-        image_url
-      }
+export const ADD_TO_WISHLIST = gql`
+  mutation Mutation($productId: ID!, $token: Secret!) {
+    addToWishlist(productId: $productId, token: $token) {
+      _id
     }
   }
 `;
@@ -44,14 +42,6 @@ export const REMOVE_FROM_WISHLIST = gql`
     removeFromWishlist(productId: $productId, token: $token) {
       _id
       name
-    }
-  }
-`;
-
-export const ADD_TO_WISHLIST = gql`
-  mutation Mutation($productId: ID!, $token: Secret!) {
-    addToWishlist(productId: $productId, token: $token) {
-      _id
     }
   }
 `;
@@ -89,98 +79,9 @@ export const DELETE_FROM_CART = gql`
   }
 `;
 
-export const ADD_CATEGORY = gql`
-  mutation Mutation($name: String!) {
-    addCategory(name: $name) {
-      _id
-      name
-    }
-  }
-`;
-
-export const DELETE_CATEGORY = gql`
-  mutation Mutation($deleteCategoryId: ID!) {
-    deleteCategory(id: $deleteCategoryId) {
-      _id
-    }
-  }
-`;
-
-export const ADD_PRODUCT = gql`
-  mutation Mutation(
-    $image: Upload!
-    $name: String!
-    $description: String!
-    $price: Float!
-    $categoryId: ID!
-    $quantity: Int!
-  ) {
-    addProduct(
-      image: $image
-      name: $name
-      description: $description
-      price: $price
-      categoryId: $categoryId
-      quantity: $quantity
-    ) {
-      _id
-      name
-      description
-      image_url
-      price
-      quantity
-      category {
-        _id
-        name
-      }
-    }
-  }
-`;
-
-export const UPDATE_PRODUCT = gql`
-  mutation Mutation(
-    $_id: ID!
-    $image: Upload
-    $name: String
-    $description: String
-    $price: Float
-    $quantity: Int
-    $category: ID
-  ) {
-    updateProduct(
-      id: $_id
-      image: $image
-      name: $name
-      description: $description
-      price: $price
-      quantity: $quantity
-      category: $category
-    ) {
-      _id
-      name
-      description
-      image_url
-      price
-      quantity
-      category {
-        _id
-        name
-      }
-    }
-  }
-`;
-
-export const DELETE_PRODUCT = gql`
-  mutation Mutation($deleteProductId: ID!) {
-    deleteProduct(id: $deleteProductId) {
-      _id
-    }
-  }
-`;
-
 export const ADD_ORDER = gql`
-  mutation Mutation($products: [ID]!) {
-    addOrder(products: $products) {
+  mutation Mutation($products: [ID]!, $token: Secret!) {
+    addOrder(products: $products, token: $token) {
       _id
       products {
         _id

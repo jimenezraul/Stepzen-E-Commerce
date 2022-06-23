@@ -5,8 +5,18 @@ type Query {
   checkout(products: [ID]!, token: Secret!): Checkout
     @graphql(
       endpoint: "https://afternoon-spire-43659.herokuapp.com/graphql"
-      headers: [{ name: "Authorization",value: "Bearer $token" },
-                { name: "Referer",value: "https://localhost:3000/" }]
+      headers: [
+        { name: "Authorization", value: "Bearer $token" }
+        { name: "Referer", value: "https://localhost:3000/" }
+      ]
+    )
+}
+
+type Mutation {
+  addOrder(products: [ID]!, token: Secret!): Order
+    @graphql(
+      endpoint: "https://afternoon-spire-43659.herokuapp.com/graphql"
+      headers: [{ name: "Authorization", value: "Bearer $token" }]
     )
 }
 
