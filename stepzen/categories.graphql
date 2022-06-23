@@ -1,5 +1,5 @@
 """
-This schema is used to query data from the MongoDB Atlas sample database "sample_airbnb"
+This schema is used to query Categories
 """
 
 type Query {
