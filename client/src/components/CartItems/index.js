@@ -37,7 +37,7 @@ const CartItem = () => {
             quantity: item.quantity + 1,
             imageUrl: item.image_url,
             token: Auth.getToken(),
-          }
+          },
         });
         dispatch(
           updateCartQuantity({ _id: item._id, quantity: item.quantity + 1 })
@@ -61,7 +61,27 @@ const CartItem = () => {
             variables: {
               productId: item._id,
               token: Auth.getToken(),
-            }
+            },
+            update: (cache) => {
+              const data = cache.readQuery({
+                query: GET_USER,
+                variables: { token: Auth.getToken() },
+              });
+              const newData = data.user.cart.filter((product) => {
+                return product._id !== item._id;
+              });
+              cache.writeQuery({
+                query: GET_USER,
+                variables: { token: Auth.getToken() },
+                data: {
+                  ...data,
+                  user: {
+                    ...data.user,
+                    cart: newData,
+                  },
+                },
+              });
+            },
           });
           dispatch(deleteFromCart(item._id));
           idbPromise("cart", "delete", { _id: item._id });

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useMutation } from "@apollo/client";
 import Jumbotron from "../components/Jumbotron";
+import { GET_USER } from "../utils/queries";
 import { ADD_ORDER } from "../utils/mutations";
 import { idbPromise } from "../utils/helpers";
 import Auth from "../utils/auth";
@@ -21,6 +22,23 @@ function Success() {
       if (products?.length) {
         const { data } = await addOrder({
           variables: { products: products, token: Auth.getToken() },
+          update: (cache) => {
+            const data = cache.readQuery({
+              query: GET_USER,
+              variables: { token: Auth.getToken() },
+            });
+            cache.writeQuery({
+              query: GET_USER,
+              variables: { token: Auth.getToken() },
+              data: {
+                ...data,
+                user: {
+                  ...data.user,
+                  cart: [],
+                },
+              },
+            });
+          },
         });
         const productData = data.addOrder.products;
         productData?.forEach((item) => {

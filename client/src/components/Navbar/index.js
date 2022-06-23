@@ -29,7 +29,7 @@ const Navbar = () => {
   const token = Auth.getToken();
 
   const { data } = useQuery(GET_USER, {
-    variables: { token },
+    variables: { token: token },
   });
 
   useEffect(() => {
@@ -62,6 +62,7 @@ const Navbar = () => {
                 imageUrl: item.image_url,
                 price: parseFloat(item.price),
                 quantity: parseInt(item.quantity),
+                token: token,
               },
             });
             return null;
