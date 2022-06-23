@@ -7,7 +7,7 @@ type Query {
       endpoint: "https://afternoon-spire-43659.herokuapp.com/graphql"
       headers: [
         { name: "Authorization", value: "Bearer $token" }
-        { name: "Referer", value: "https://dry-mountain-49625.herokuapp.com/" }
+        { name: "Referer", value: "http://localhost:3000/" }
       ]
     )
 }
