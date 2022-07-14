@@ -96,6 +96,7 @@ const ProductDetails = () => {
               id: product._id,
               quantity: quantityInCart,
               imageUrl: product.image_url,
+              token: Auth.getToken(),
             },
           }).then(() => {
             dispatch(updateCart(newCart));
@@ -116,6 +117,7 @@ const ProductDetails = () => {
           id: product._id,
           quantity: parseFloat(quantity?.current?.value),
           imageUrl: product.image_url,
+          token: Auth.getToken(),
         },
       }).then(() => {
         dispatch(
